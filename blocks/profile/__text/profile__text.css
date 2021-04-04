@@ -1,0 +1,17 @@
+.profile__text {
+  margin-left: 30px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 18px auto;
+  grid-template-columns: repeat(2, auto);
+  -ms-grid-rows: auto 16px auto;
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: 16px;
+  grid-column-gap: 18px;
+}
+
+@media screen and (max-width: 649px) {
+  .profile__text {
+    margin: 22px 0 36px;
+  }
+}
