@@ -6,8 +6,8 @@
   grid-template-columns: repeat(2, auto);
   -ms-grid-rows: auto 16px auto;
   grid-template-rows: repeat(2, auto);
-  grid-row-gap: 16px;
   grid-column-gap: 18px;
+  padding: 22px 0;
 }
 
 @media screen and (max-width: 649px) {
