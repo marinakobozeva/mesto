@@ -13,5 +13,7 @@
 @media screen and (max-width: 649px) {
   .profile__text {
     margin: 22px 0 36px;
+    padding: 0;
+    grid-row-gap: 14px;
   }
 }
