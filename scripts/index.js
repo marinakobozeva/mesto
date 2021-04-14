@@ -2,6 +2,14 @@
 // Функция открытия Popup
 function openPopup(event) {
   const popup = document.querySelector('.page__popup');
+  const profileName = document.querySelector('.profile__name');
+  const profilePosition = document.querySelector('.profile__position');
+  const inputName = document.querySelector('.page__popup-input_type_name');
+  const inputPosition = document.querySelector('.page__popup-input_type_position');
+
+  inputName.value = profileName.textContent;
+  inputPosition.value = profilePosition.textContent;
+
   popup.classList.remove('page__popup_hidden');
 }
 
@@ -15,10 +23,7 @@ function closePopup(event) {
 }
 
 const closeButton = document.querySelector('.page__popup-close-button');
-closeButton.addEventListener('click', closePopup)
-
-const overlay = document.querySelector('.page__popup-overlay');
-overlay.addEventListener('click', closePopup);
+closeButton.addEventListener('click', closePopup);
 
 // Кнопки "Like"
 // Функция закрашивания кнопки
@@ -38,8 +43,8 @@ function submitForm(event) {
   event.preventDefault();
   const profileName = document.querySelector('.profile__name');
   const profilePosition = document.querySelector('.profile__position');
-  const inputName = document.querySelector('.page__popup-name');
-  const inputPosition = document.querySelector('.page__popup-position');
+  const inputName = document.querySelector('.page__popup-input_type_name');
+  const inputPosition = document.querySelector('.page__popup-input_type_position');
 
   profileName.textContent = inputName.value;
   profilePosition.textContent = inputPosition.value;

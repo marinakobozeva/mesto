@@ -3,12 +3,13 @@
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__popup/page__popup.css);
 @import url(../blocks/page/__popup/_hidden/page__popup_hidden.css);
-@import url(../blocks/page/__popup-overlay/page__popup-overlay.css);
 @import url(../blocks/page/__popup-content/page__popup-content.css);
 @import url(../blocks/page/__popup-close-button/page__popup-close-button.css);
 @import url(../blocks/page/__popup-title/page__popup-title.css);
 @import url(../blocks/page/__popup-text/page__popup-text.css);
 @import url(../blocks/page/__popup-input/page__popup-input.css);
+@import url(../blocks/page/__popup-input/_type/page__popup-input_type_name.css);
+@import url(../blocks/page/__popup-input/_type/page__popup-input_type_position.css);
 @import url(../blocks/page/__popup-save-button/page__popup-save-button.css);
 @import url(../blocks/page/__container/page__container.css);
 @import url(../blocks/header/header.css);

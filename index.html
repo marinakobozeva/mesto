@@ -10,14 +10,13 @@
 </head>
 <body class="page">
    <div class="page__popup page__popup_hidden">
-    <div class="page__popup-overlay"></div>
     <div class="page__popup-content">
-      <button class="page__popup-close-button"><img src="./images/Close Icon.png" alt="Крестик"></button>
+      <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик"></button>
       <h2 class="page__popup-title">Редактировать профиль</h2>
-      <form class="page__popup-text">
-        <input type="text" placeholder="Введите имя" class="page__popup-input page__popup-name">
-        <input type="text" placeholder="Введите род деятельности" class="page__popup-input page__popup-position">
-        <button class="page__popup-save-button">Сохранить</button>
+      <form name="personal-information" class="page__popup-text">
+        <input type="text" name="personal-name" placeholder="Введите имя" class="page__popup-input page__popup-input_type_name">
+        <input type="text" name="personal-position" placeholder="Введите род деятельности" class="page__popup-input page__popup-input_type_position">
+        <button type="submit" class="page__popup-save-button">Сохранить</button>
       </form>
     </div>
    </div>
@@ -28,61 +27,63 @@
       </a>
     </header>
     <main class="main">
-      <div class="profile">
+      <section class="profile">
         <div class="profile__info">
           <img src="./images/image.jpg" alt="Аватар" class="profile__avatar">
           <div class="profile__text">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button"><img src="./images/pencil.png" alt="Кнопка редактирования"></button>
+              <button type="button" class="profile__edit-button"><img src="./images/pencil.png" alt="Кнопка редактирования"></button>
               <p class="profile__position">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button"><img src="./images/plus.png" alt="Плюс"></button>
-      </div>
-      <ul class="elements">
-        <li class="element">
-          <img src="./images/altai-min.jpeg" alt="Алтай" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Алтай</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/baikal-min.jpeg" alt="Байкал" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Байкал</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/karachaevo-min.jpeg" alt="Карачаево-Черкесия" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Карачево-Черкесия</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/karelia-min.jpeg" alt="Карелия" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Карелия</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/krym-min.jpeg" alt="Крым" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Крым</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="./images/petropavlovsk-min.jpg" alt="Петропавловск-Камчатский" class="element__photo">
-          <div class="element__caption">
-            <p class="element__caption-text">Петропавловск-Камчатский</p>
-            <button class="element__like-button"></button>
-          </div>
-        </li>
-      </ul>
+        <button type="button" class="profile__add-button"><img src="./images/plus.png" alt="Плюс"></button>
+      </section>
+      <section>
+        <ul class="elements">
+          <li class="element">
+            <img src="./images/altai-min.jpeg" alt="Алтай" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Алтай</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/baikal-min.jpeg" alt="Байкал" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Байкал</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/karachaevo-min.jpeg" alt="Карачаево-Черкесия" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Карачево-Черкесия</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/karelia-min.jpeg" alt="Карелия" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Карелия</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/krym-min.jpeg" alt="Крым" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Крым</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+          <li class="element">
+            <img src="./images/petropavlovsk-min.jpg" alt="Петропавловск-Камчатский" class="element__photo">
+            <div class="element__caption">
+              <p class="element__caption-text">Петропавловск-Камчатский</p>
+              <button type="button" class="element__like-button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy;2021 Марина Кобозева</p>

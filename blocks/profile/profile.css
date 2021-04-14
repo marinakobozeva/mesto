@@ -8,10 +8,12 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  margin: 40px 0 0;
 }
 
 @media screen and (max-width: 649px) {
   .profile {
+    margin: 42px 0 0;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
