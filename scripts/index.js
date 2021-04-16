@@ -1,58 +1,7 @@
-const initialCards = [
-  {
-  name: 'Архыз',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-  name: 'Челябинская область',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinskoblast.jpg'
-  },
-  {
-  name: 'Иваново',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-  name: 'Камчатка',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-  name: 'Холмогорский район',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-  name: 'Байкал',
-  link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-  ];
+/* БЛОК ПЕРЕМЕННЫХ */
 
-let elementsList = document.querySelector('.elements');
-
-// Функция добавления элемента на страницу
-
-function addElement(name, link) {
-  const elementTemplate = document.querySelector('#element').content;
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementImg = element.querySelector('.element__photo');
-  const elementCaption = element.querySelector('.element__caption-text');
-  const elementLikeBtn = element.querySelector('.element__like-button');
-
-  elementImg.src = link;
-  elementImg.alt = name;
-  elementCaption.textContent = name;
-  elementLikeBtn.addEventListener('click', toggleButton);
-
-  elementsList.prepend(element);
-
-
-}
-
-for (let item of initialCards) {
-  addElement(item.name, item.link);
-};
-
-
-
-
+// Popup'ы
+const placePopup = document.querySelector('.page__popup_type_new-place');
 
 const profilePopup = document.querySelector('.page__popup_type_profile');
 const profileName = document.querySelector('.profile__name');
@@ -60,54 +9,131 @@ const profilePosition = document.querySelector('.profile__position');
 const inputName = document.querySelector('.page__popup-input_type_name');
 const inputPosition = document.querySelector('.page__popup-input_type_position');
 
-const placePopup = document.querySelector('.page__popup_type_new-place');
+const elementPopup = document.querySelector('.page__popup_type_photo');
+const elementPopupPhoto = document.querySelector('.page__popup_type_photo .page__popup-image');
+const elementPopupCaption = document.querySelector('.page__popup_type_photo .page__popup-caption');
 
+// Кнопки, относящиеся к Popup
+const editProfileButton = document.querySelector('.profile__edit-button');
+const closeProfileButton = profilePopup.querySelector('.page__popup-close-button');
+const addPlaceButton = document.querySelector('.profile__add-button');
+const closePlaceButton = placePopup.querySelector('.page__popup-close-button');
+const closeElementButton = elementPopup.querySelector('.page__popup-close-button');
+
+// Форма изменения данных профиля
+const profileForm = document.querySelector('.page__popup_type_profile .page__popup-text');
+
+// Форма добавления нового места
+const placeForm = document.querySelector('.page__popup_type_new-place .page__popup-text');
+
+// Контейнер для карточек и стартовые карточки
+const elementsList = document.querySelector('.elements');
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://www.misa.ac.ru/files/1124/Meteorit_Chelyabinsk_%2801%29-%283%29.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+/* БЛОК ФУНКЦИЙ */
+
+// Общая функция открытия Popup
 function openPopup(popup) {
   popup.classList.remove('page__popup_hidden');
 }
 
+// Общая функция закрытия Popup
 function closePopup(popup) {
   popup.classList.add('page__popup_hidden');
 }
 
+// Функция открытия Popup изменения данных профиля
 function openProfilePopup(event) {
   inputName.value = profileName.textContent;
   inputPosition.value = profilePosition.textContent;
   openPopup(profilePopup)
 }
 
-function openPlacePopup(event) {
-  openPopup(placePopup)
-}
-
+// Функция закрытия Popup изменения данных профиля
 function closeProfilePopup(event) {
   closePopup(profilePopup)
 }
 
+// Функция открытия Popup добавления нового места
+function openPlacePopup(event) {
+  openPopup(placePopup)
+}
+
+// Функция закрытия Popup добавления нового места
 function closePlacePopup(event) {
   closePopup(placePopup)
 }
 
-const editProfileButton = document.querySelector('.profile__edit-button');
-editProfileButton.addEventListener('click', openProfilePopup)
+// Функция открытия Popup просмотра фотографии
+function openElementPopup(event) {
+  const elementPhoto = event.target;
+  elementPopupPhoto.src = elementPhoto.src;
+  elementPopupPhoto.alt = elementPhoto.alt;
+  elementPopupCaption.textContent = elementPhoto.alt;
+  openPopup(elementPopup);
+}
 
-const closeProfileButton = profilePopup.querySelector('.page__popup-close-button');
-closeProfileButton.addEventListener('click', closeProfilePopup);
+// Функция закрытия Popup просмотра фотографии
+function closeElementPopup(event) {
+  closePopup(elementPopup);
+}
 
-const addPlaceButton = document.querySelector('.profile__add-button');
-addPlaceButton.addEventListener('click', openPlacePopup)
-
-const closePlaceButton = placePopup.querySelector('.page__popup-close-button');
-closePlaceButton.addEventListener('click', closePlacePopup);
-
-// Кнопки "Like"
-// Функция закрашивания кнопки
-
+// Функция изменения цвета кнопки Like
 function toggleButton(event) {
   event.target.classList.toggle('element__like-button_active')
 };
 
-// Работа с формой Profile
+// Функция удаления элемента из контейнера карточек
+function deleteElement(event) {
+  const elementItem = event.target.closest('.element');
+  elementItem.remove();
+}
+
+// Функция добавления элемента в контейнер карточек
+function addElement(name, link) {
+  const elementTemplate = document.querySelector('#element').content;
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
+  const elementImg = element.querySelector('.element__photo');
+  const elementCaption = element.querySelector('.element__caption-text');
+  const elementLikeBtn = element.querySelector('.element__like-button');
+  const elementDeleteBtn = element.querySelector('.element__delete-button');
+
+  elementImg.src = link;
+  elementImg.alt = name;
+  elementCaption.textContent = name;
+  elementLikeBtn.addEventListener('click', toggleButton);
+  elementDeleteBtn.addEventListener('click', deleteElement);
+  elementImg.addEventListener('click', openElementPopup)
+
+  elementsList.prepend(element);
+}
+
+// Обработчик отправки формы изменения данных профиля
 function submitProfileForm(event) {
   event.preventDefault();
 
@@ -120,10 +146,7 @@ function submitProfileForm(event) {
   closePopup(profilePopup);
 }
 
-const profileForm = document.querySelector('.page__popup_type_profile .page__popup-text');
-profileForm.addEventListener('submit', submitProfileForm);
-
-
+// Обработчик добавления нового места
 function submitPlaceForm(event) {
   event.preventDefault();
 
@@ -138,13 +161,26 @@ function submitPlaceForm(event) {
   closePopup(placePopup);
 };
 
-const placeForm = document.querySelector('.page__popup_type_new-place .page__popup-text');
+/* БЛОК ОБРАБОТКИ СОБЫТИЙ */
+
+// Отслеживаем нажатия на функциональные кнопки Popup
+editProfileButton.addEventListener('click', openProfilePopup)
+closeProfileButton.addEventListener('click', closeProfilePopup);
+
+addPlaceButton.addEventListener('click', openPlacePopup)
+closePlaceButton.addEventListener('click', closePlacePopup);
+
+closeElementButton.addEventListener('click', closeElementPopup);
+
+// Обработчик отправки формы изменения данных пользователя
+profileForm.addEventListener('submit', submitProfileForm);
+
+// Обработчик отправки формы добавления нового места
 placeForm.addEventListener('submit', submitPlaceForm);
 
+/* БЛОК ИНИЦИАЛИЗАЦИИ ДАННЫХ */
 
-
-
-
-
-
-
+// Добавление стартовых карточек на страницу
+for (let item of initialCards) {
+  addElement(item.name, item.link);
+};
