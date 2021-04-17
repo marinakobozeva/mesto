@@ -8,10 +8,15 @@
 @import url(../blocks/page/__popup-close-icon/page__popup-close-icon.css);
 @import url(../blocks/page/__popup-title/page__popup-title.css);
 @import url(../blocks/page/__popup-text/page__popup-text.css);
+@import url(../blocks/page/__popup-form-field/page__popup-form-field.css);
 @import url(../blocks/page/__popup-input/page__popup-input.css);
 @import url(../blocks/page/__popup-input/_type/page__popup-input_type_name.css);
 @import url(../blocks/page/__popup-input/_type/page__popup-input_type_position.css);
+@import url(../blocks/page/__popup-input/_type/page__popup-input_type_error.css);
+@import url(../blocks/page/__popup-input-error/page__popup-input-error.css);
+@import url(../blocks/page/__popup-input-error/_active/page__popup-input-error_active.css);
 @import url(../blocks/page/__popup-save-button/page__popup-save-button.css);
+@import url(../blocks/page/__popup-save-button/_inactive/page__popup-save-button_inactive.css);
 @import url(../blocks/page/__popup/_type/page__popup_type_photo.css);
 @import url(../blocks/page/__popup-photo-content/page__popup-photo-content.css);
 @import url(../blocks/page/__popup-image/page__popup-image.css);

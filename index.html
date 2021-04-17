@@ -40,9 +40,15 @@
     <div class="page__popup-content">
       <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик" class="page__popup-close-icon"></button>
       <h2 class="page__popup-title">Редактировать профиль</h2>
-      <form name="personal-information" class="page__popup-text">
-        <input type="text" name="personal-name" placeholder="Введите имя" class="page__popup-input page__popup-input_type_name">
-        <input type="text" name="personal-position" placeholder="Введите род деятельности" class="page__popup-input page__popup-input_type_position">
+      <form name="personal-information" class="page__popup-text" novalidate>
+        <div class="page__popup-form-field">
+          <input type="text" name="personal-name" placeholder="Введите имя" id="name-input" class="page__popup-input page__popup-input_type_name" maxlength="40" minlength="2" required>
+          <span class="page__popup-input-error name-input-error"></span>
+        </div>
+        <div class="page__popup-form-field">
+          <input type="text" name="personal-position" placeholder="Введите род деятельности" id="position-input" class="page__popup-input page__popup-input_type_position" maxlength="200" minlength="2" required>
+          <span class="page__popup-input-error position-input-error"></span>
+        </div>
         <button type="submit" class="page__popup-save-button">Сохранить</button>
       </form>
     </div>
@@ -51,9 +57,15 @@
     <div class="page__popup-content">
       <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик"  class="page__popup-close-icon"></button>
       <h2 class="page__popup-title">Новое место</h2>
-      <form name="new-place" class="page__popup-text">
-        <input type="text" name="place-name" placeholder="Название" class="page__popup-input page__popup-input_type_place">
-        <input type="text" name="place-link" placeholder="Ссылка на картинку" class="page__popup-input page__popup-input_type_link">
+      <form name="new-place" class="page__popup-text" novalidate>
+        <div class="page__popup-form-field">
+          <input type="text" name="place-name" placeholder="Название" id="place-input" class="page__popup-input page__popup-input_type_place" minlength="1" maxlength="30" required>
+        <span class="page__popup-input-error place-input-error"></span>
+        </div>
+        <div class="page__popup-form-field">
+          <input type="url" name="place-link" placeholder="Ссылка на картинку" id="link-input" class="page__popup-input page__popup-input_type_link" required>
+        <span class="page__popup-input-error link-input-error"></span>
+        </div>
         <button type="submit" class="page__popup-save-button">Сохранить</button>
       </form>
     </div>
@@ -77,5 +89,6 @@
   </template>
   <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 </html>

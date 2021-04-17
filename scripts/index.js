@@ -35,12 +35,28 @@ const elementsList = document.querySelector('.elements');
 
 // Общая функция открытия Popup
 function openPopup(popup) {
+  // При отключении блока валидации данная функция станет недоступной, поэтому, чтобы не было ошибки,
+  // проверяем её наличие
+  if (preparePopupForm !== undefined) {
+    preparePopupForm(popup);
+  }
   popup.classList.remove('page__popup_hidden');
 }
 
 // Общая функция закрытия Popup
-function closePopup(popup) {
-  popup.classList.add('page__popup_hidden');
+function closePopup(popup, event) {
+  const isOutsideClick = event.type === 'click' && (event.target.classList.contains('page__popup') || event.target.classList.contains('page__popup-close-icon'));
+  const isFormSubmit = event.type === 'submit';
+  const isEsc = event.type === 'keyup' && popup.classList.contains('page__popup')
+
+  if (isOutsideClick || isFormSubmit || isEsc) {
+    popup.classList.add('page__popup_hidden');
+
+    // Аналогично openPopup
+    if (cleanUpPopup !== undefined) {
+      cleanUpPopup(popup);
+    }
+  }
 }
 
 // Функция открытия Popup изменения данных профиля
@@ -52,7 +68,7 @@ function openProfilePopup(event) {
 
 // Функция закрытия Popup изменения данных профиля
 function closeProfilePopup(event) {
-  closePopup(profilePopup);
+  closePopup(profilePopup, event);
 }
 
 // Функция открытия Popup добавления нового места
@@ -62,9 +78,7 @@ function openPlacePopup(event) {
 
 // Функция закрытия Popup добавления нового места
 function closePlacePopup(event) {
-  closePopup(placePopup);
-  inputPlace.value = '';
-  inputLink.value = '';
+  closePopup(placePopup, event);
 }
 
 // Функция открытия Popup просмотра фотографии
@@ -78,7 +92,7 @@ function openElementPopup(event) {
 
 // Функция закрытия Popup просмотра фотографии
 function closeElementPopup(event) {
-  closePopup(elementPopup);
+  closePopup(elementPopup, event);
 }
 
 // Функция изменения цвета кнопки Like
@@ -124,7 +138,7 @@ function submitProfileForm(event) {
   profileName.textContent = inputName.value;
   profilePosition.textContent = inputPosition.value;
 
-  closePopup(profilePopup);
+  closePopup(profilePopup, event);
 
   inputName.value = '';
   inputPosition.value = '';
@@ -135,22 +149,37 @@ function submitPlaceForm(event) {
   event.preventDefault();
 
   addElement(inputPlace.value, inputLink.value);
-  closePopup(placePopup);
+  closePopup(placePopup, event);
 
   inputPlace.value = '';
   inputLink.value = '';
 };
 
+// Обработчик закрытия Popup на Esc
+function closePopupOnEsc(event) {
+  if (event.key === 'Escape') {
+    const allPopups = Array.from(document.querySelectorAll('.page__popup'));
+    for (let popup of allPopups) {
+      if (!popup.classList.contains('page__popup_hidden')) {
+        closePopup(popup, event)
+      }
+    }
+  }
+}
+
 /* БЛОК ОБРАБОТКИ СОБЫТИЙ */
 
 // Отслеживаем нажатия на функциональные кнопки Popup
 editProfileButton.addEventListener('click', openProfilePopup);
-closeProfileButton.addEventListener('click', closeProfilePopup);
+profilePopup.addEventListener('click', closeProfilePopup);
 
 addPlaceButton.addEventListener('click', openPlacePopup);
-closePlaceButton.addEventListener('click', closePlacePopup);
+placePopup.addEventListener('click', closePlacePopup);
 
-closeElementButton.addEventListener('click', closeElementPopup);
+elementPopup.addEventListener('click', closeElementPopup);
+
+// Закрытие Popup по Esc
+document.addEventListener('keyup', closePopupOnEsc);
 
 // Обработчик отправки формы изменения данных пользователя
 profileForm.addEventListener('submit', submitProfileForm);
