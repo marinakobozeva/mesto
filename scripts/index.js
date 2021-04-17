@@ -2,6 +2,8 @@
 
 // Popup'ы
 const placePopup = document.querySelector('.page__popup_type_new-place');
+const inputPlace = document.querySelector('.page__popup-input_type_place');
+const inputLink = document.querySelector('.page__popup-input_type_link');
 
 const profilePopup = document.querySelector('.page__popup_type_profile');
 const profileName = document.querySelector('.profile__name');
@@ -28,32 +30,6 @@ const placeForm = document.querySelector('.page__popup_type_new-place .page__pop
 
 // Контейнер для карточек и стартовые карточки
 const elementsList = document.querySelector('.elements');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://www.misa.ac.ru/files/1124/Meteorit_Chelyabinsk_%2801%29-%283%29.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 /* БЛОК ФУНКЦИЙ */
 
@@ -76,17 +52,19 @@ function openProfilePopup(event) {
 
 // Функция закрытия Popup изменения данных профиля
 function closeProfilePopup(event) {
-  closePopup(profilePopup)
+  closePopup(profilePopup);
 }
 
 // Функция открытия Popup добавления нового места
 function openPlacePopup(event) {
-  openPopup(placePopup)
+  openPopup(placePopup);
 }
 
 // Функция закрытия Popup добавления нового места
 function closePlacePopup(event) {
-  closePopup(placePopup)
+  closePopup(placePopup);
+  inputPlace.value = '';
+  inputLink.value = '';
 }
 
 // Функция открытия Popup просмотра фотографии
@@ -105,7 +83,7 @@ function closeElementPopup(event) {
 
 // Функция изменения цвета кнопки Like
 function toggleButton(event) {
-  event.target.classList.toggle('element__like-button_active')
+  event.target.classList.toggle('element__like-button_active');
 };
 
 // Функция удаления элемента из контейнера карточек
@@ -115,7 +93,7 @@ function deleteElement(event) {
 }
 
 // Функция добавления элемента в контейнер карточек
-function addElement(name, link) {
+function createElement(name, link) {
   const elementTemplate = document.querySelector('#element').content;
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImg = element.querySelector('.element__photo');
@@ -126,10 +104,16 @@ function addElement(name, link) {
   elementImg.src = link;
   elementImg.alt = name;
   elementCaption.textContent = name;
+
   elementLikeBtn.addEventListener('click', toggleButton);
   elementDeleteBtn.addEventListener('click', deleteElement);
-  elementImg.addEventListener('click', openElementPopup)
+  elementImg.addEventListener('click', openElementPopup);
 
+  return element;
+}
+
+function addElement(name, link) {
+  const element = createElement(name, link);
   elementsList.prepend(element);
 }
 
@@ -140,34 +124,30 @@ function submitProfileForm(event) {
   profileName.textContent = inputName.value;
   profilePosition.textContent = inputPosition.value;
 
+  closePopup(profilePopup);
+
   inputName.value = '';
   inputPosition.value = '';
-
-  closePopup(profilePopup);
 }
 
 // Обработчик добавления нового места
 function submitPlaceForm(event) {
   event.preventDefault();
 
-  const inputPlace = document.querySelector('.page__popup-input_type_place');
-  const inputLink = document.querySelector('.page__popup-input_type_link');
-
   addElement(inputPlace.value, inputLink.value);
+  closePopup(placePopup);
 
   inputPlace.value = '';
   inputLink.value = '';
-
-  closePopup(placePopup);
 };
 
 /* БЛОК ОБРАБОТКИ СОБЫТИЙ */
 
 // Отслеживаем нажатия на функциональные кнопки Popup
-editProfileButton.addEventListener('click', openProfilePopup)
+editProfileButton.addEventListener('click', openProfilePopup);
 closeProfileButton.addEventListener('click', closeProfilePopup);
 
-addPlaceButton.addEventListener('click', openPlacePopup)
+addPlaceButton.addEventListener('click', openPlacePopup);
 closePlaceButton.addEventListener('click', closePlacePopup);
 
 closeElementButton.addEventListener('click', closeElementPopup);
