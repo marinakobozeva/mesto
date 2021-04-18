@@ -72,27 +72,12 @@ const toggleButtonState = (inputList, buttonElement, config) => {
 
 // Функция подготовливает Popup в момент его открытия: устанавливает корректное состояние submit кнопки в
 // зависимости от состояния полей
-function preparePopupForm(popup) {
-  const popupForm = popup.querySelector('.page__popup-text');
+function preparePopupForm(popupForm) {
+  const inputList = Array.from(popupForm.querySelectorAll('.page__popup-input'));
+  const buttonElement = popupForm.querySelector('.page__popup-save-button');
 
-  if (popupForm !== null) {
-    const inputList = Array.from(popupForm.querySelectorAll('.page__popup-input'));
-    const buttonElement = popupForm.querySelector('.page__popup-save-button');
-
-    toggleButtonState(inputList, buttonElement, validationConfig)
-  }
-}
-
-// Функция приводит Popup в первоначальное состояние при его закрытии
-function cleanUpPopup(popup) {
-  const popupForm = popup.querySelector('.page__popup-text');
-
-  if (popupForm !== null) {
-    const inputList = Array.from(popupForm.querySelectorAll('.page__popup-input'));
-
-    popupForm.reset();
-    inputList.forEach((input) => hideInputError(popupForm, input, validationConfig));
-  }
+  inputList.forEach((input) => hideInputError(popupForm, input, validationConfig));
+  toggleButtonState(inputList, buttonElement, validationConfig)
 }
 
 enableValidation(validationConfig);

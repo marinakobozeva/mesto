@@ -6,8 +6,8 @@
   bottom: 0;
   color: #000;
   background-color: rgba(0, 0, 0, .5);
-  visibility: visible;
-  opacity: 1;
+  visibility: hidden;
+  opacity: 0;
   transition: visibility .2s,opacity .2s linear;
 }
 
