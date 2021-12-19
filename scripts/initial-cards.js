@@ -5,7 +5,7 @@ const initialCards = [
   },
   {
     name: 'Челябинская область',
-    link: 'https://www.misa.ac.ru/files/1124/Meteorit_Chelyabinsk_%2801%29-%283%29.jpg'
+    link: 'https://i.ytimg.com/vi/62k4ZP-TYvU/maxresdefault.jpg'
   },
   {
     name: 'Иваново',

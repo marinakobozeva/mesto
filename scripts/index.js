@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 /* БЛОК ПЕРЕМЕННЫХ */
 
 // Popup'ы
@@ -22,11 +25,24 @@ const addPlaceButton = document.querySelector('.profile__add-button');
 const closePlaceButton = placePopup.querySelector('.page__popup-close-button');
 const closeElementButton = elementPopup.querySelector('.page__popup-close-button');
 
+const validationConfig = {
+  'formSelector': '.page__popup-text',
+  'inputSelector': '.page__popup-input',
+  'submitButtonSelector':  '.page__popup-save-button',
+  'inactiveButtonClass': 'page__popup-save-button_inactive',
+  'inputErrorClass': 'page__popup-input_type_error',
+  'errorClass': 'page__popup-input-error_active'
+}
+
 // Форма изменения данных профиля
 const profileForm = document.querySelector('.page__popup_type_profile .page__popup-text');
+const profileFormValidator = new FormValidator(validationConfig, profileForm);
+profileFormValidator.enableValidation();
 
 // Форма добавления нового места
 const placeForm = document.querySelector('.page__popup_type_new-place .page__popup-text');
+const placeFormValidator = new FormValidator(validationConfig, placeForm);
+placeFormValidator.enableValidation();
 
 // Контейнер для карточек и стартовые карточки
 const elementsList = document.querySelector('.elements');
@@ -51,9 +67,9 @@ function openProfilePopup(event) {
   inputName.value = profileName.textContent;
   inputPosition.value = profilePosition.textContent;
 
-  if (preparePopupForm !== undefined) {
-    preparePopupForm(profileForm);
-  }
+  const inputEvent = new Event('input');
+  inputName.dispatchEvent(inputEvent);
+  inputPosition.dispatchEvent(inputEvent);
 
   openPopup(profilePopup)
 }
@@ -61,11 +77,10 @@ function openProfilePopup(event) {
 // Функция открытия Popup добавления нового места
 function openPlacePopup(event) {
   // Очищаем форму от введенных ранее значений
-  placeForm.reset()
-  
-  if (preparePopupForm !== undefined) {
-    preparePopupForm(placeForm);
-  }
+  const btnSave = placeForm.querySelector('.page__popup-save-button')
+  placeForm.reset();
+  btnSave.disabled = true;
+  btnSave.classList.add('page__popup-save-button_inactive');
 
   openPopup(placePopup);
 }
@@ -90,28 +105,10 @@ function deleteElement(event) {
   elementItem.remove();
 }
 
-// Функция добавления элемента в контейнер карточек
-function createElement(name, link) {
-  const elementTemplate = document.querySelector('#element').content;
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementImg = element.querySelector('.element__photo');
-  const elementCaption = element.querySelector('.element__caption-text');
-  const elementLikeBtn = element.querySelector('.element__like-button');
-  const elementDeleteBtn = element.querySelector('.element__delete-button');
-
-  elementImg.src = link;
-  elementImg.alt = name;
-  elementCaption.textContent = name;
-
-  elementLikeBtn.addEventListener('click', toggleButton);
-  elementDeleteBtn.addEventListener('click', deleteElement);
-  elementImg.addEventListener('click', openElementPopup);
-
-  return element;
-}
-
 function addElement(name, link) {
-  const element = createElement(name, link);
+  const element = new Card(name, link, '#element').renderCard();
+  const elementImg = element.querySelector('.element__photo');
+  elementImg.addEventListener('click', openElementPopup);
   elementsList.prepend(element);
 }
 
