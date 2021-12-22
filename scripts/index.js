@@ -1,9 +1,12 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import { initialCards } from './initialCards.js';
 
 /* БЛОК ПЕРЕМЕННЫХ */
 
 // Popup'ы
+const popups = document.querySelectorAll('.page__popup');
+
 const placePopup = document.querySelector('.page__popup_type_new-place');
 const inputPlace = document.querySelector('.page__popup-input_type_place');
 const inputLink = document.querySelector('.page__popup-input_type_link');
@@ -20,10 +23,7 @@ const elementPopupCaption = document.querySelector('.page__popup_type_photo .pag
 
 // Кнопки, относящиеся к Popup
 const editProfileButton = document.querySelector('.profile__edit-button');
-const closeProfileButton = profilePopup.querySelector('.page__popup-close-button');
 const addPlaceButton = document.querySelector('.profile__add-button');
-const closePlaceButton = placePopup.querySelector('.page__popup-close-button');
-const closeElementButton = elementPopup.querySelector('.page__popup-close-button');
 
 const validationConfig = {
   'formSelector': '.page__popup-text',
@@ -77,38 +77,20 @@ function openProfilePopup(event) {
 // Функция открытия Popup добавления нового места
 function openPlacePopup(event) {
   // Очищаем форму от введенных ранее значений
-  const btnSave = placeForm.querySelector('.page__popup-save-button')
-  placeForm.reset();
-  btnSave.disabled = true;
-  btnSave.classList.add('page__popup-save-button_inactive');
-
+  placeFormValidator.resetValidation();
   openPopup(placePopup);
 }
 
 // Функция открытия Popup просмотра фотографии
-function openElementPopup(event) {
-  const elementPhoto = event.target;
-  elementPopupPhoto.src = elementPhoto.src;
-  elementPopupPhoto.alt = elementPhoto.alt;
-  elementPopupCaption.textContent = elementPhoto.alt;
+function openElementPopup(photo) {
+  elementPopupPhoto.src = photo.src;
+  elementPopupPhoto.alt = photo.alt;
+  elementPopupCaption.textContent = photo.alt;
   openPopup(elementPopup);
 }
 
-// Функция изменения цвета кнопки Like
-function toggleButton(event) {
-  event.target.classList.toggle('element__like-button_active');
-};
-
-// Функция удаления элемента из контейнера карточек
-function deleteElement(event) {
-  const elementItem = event.target.closest('.element');
-  elementItem.remove();
-}
-
 function addElement(name, link) {
-  const element = new Card(name, link, '#element').renderCard();
-  const elementImg = element.querySelector('.element__photo');
-  elementImg.addEventListener('click', openElementPopup);
+  const element = new Card(name, link, '#element', openElementPopup).renderCard();
   elementsList.prepend(element);
 }
 
@@ -143,25 +125,23 @@ function closePopupOnEsc(event) {
   }
 }
 
-function closePopupOnOverlay(event) {
-  if (event.target.classList.contains('page__popup')) {
-    closePopup(event.target)
-  }
-}
+// Закрытие попапов
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('page__popup_opened')) {
+          closePopup(popup);
+        }
+        if (evt.target.classList.contains('page__popup-close-icon')) {
+          closePopup(popup);
+        }
+    })
+})
 
 /* БЛОК ОБРАБОТКИ СОБЫТИЙ */
 
 // Отслеживаем нажатия на функциональные кнопки Popup
 editProfileButton.addEventListener('click', openProfilePopup);
-profilePopup.addEventListener('click', closePopupOnOverlay);
-closeProfileButton.addEventListener('click', function () {closePopup(profilePopup)})
-
 addPlaceButton.addEventListener('click', openPlacePopup);
-placePopup.addEventListener('click', closePopupOnOverlay);
-closePlaceButton.addEventListener('click', function () {closePopup(placePopup)})
-
-elementPopup.addEventListener('click', closePopupOnOverlay);
-closeElementButton.addEventListener('click', function () {closePopup(elementPopup)})
 
 // Обработчик отправки формы изменения данных пользователя
 profileForm.addEventListener('submit', submitProfileForm);
