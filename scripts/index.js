@@ -89,8 +89,12 @@ function openElementPopup(photo) {
   openPopup(elementPopup);
 }
 
-function addElement(name, link) {
+function createElement(name, link) {
   const element = new Card(name, link, '#element', openElementPopup).renderCard();
+  return element
+}
+
+function addElement(element) {
   elementsList.prepend(element);
 }
 
@@ -111,7 +115,8 @@ function submitProfileForm(event) {
 function submitPlaceForm(event) {
   event.preventDefault();
 
-  addElement(inputPlace.value, inputLink.value);
+  const element = createElement(inputPlace.value, inputLink.value);
+  addElement(element);
   closePopup(placePopup);
 
   inputPlace.value = '';
@@ -153,5 +158,6 @@ placeForm.addEventListener('submit', submitPlaceForm);
 
 // Добавление стартовых карточек на страницу
 for (let item of initialCards) {
-  addElement(item.name, item.link);
+  const element = createElement(item.name, item.link);
+  addElement(element);
 };
