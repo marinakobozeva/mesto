@@ -5,27 +5,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Marina Kobozeva">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
   <div class="page__container">
     <header class="header">
       <a href="#" target="_blank" rel="noopener">
-        <img src="./images/logo.svg" alt="Логотип" class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип" class="header__logo">
       </a>
     </header>
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img src="./images/image.jpg" alt="Аватар" class="profile__avatar">
+          <img src="<%=require('./images/image.jpg')%>" alt="Аватар" class="profile__avatar">
           <div class="profile__text">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button type="button" class="profile__edit-button"><img src="./images/pencil.png" alt="Кнопка редактирования" class="profile__edit-image"></button>
+              <button type="button" class="profile__edit-button"><img src="<%=require('./images/pencil.png')%>" alt="Кнопка редактирования" class="profile__edit-image"></button>
               <p class="profile__position">Исследователь океана</p>
           </div>
         </div>
-        <button type="button" class="profile__add-button"><img src="./images/plus.png" alt="Плюс" class="profile__add-image"></button>
+        <button type="button" class="profile__add-button"><img src="<%=require('./images/plus.png')%>" alt="Плюс" class="profile__add-image"></button>
       </section>
       <section>
         <ul class="elements">
@@ -38,7 +37,7 @@
   </div>
   <div class="page__popup page__popup_type_profile">
     <div class="page__popup-content">
-      <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик" class="page__popup-close-icon"></button>
+      <button type="button" class="page__popup-close-button"><img src="<%=require('./images/close-icon.png')%>" alt="Крестик" class="page__popup-close-icon"></button>
       <h2 class="page__popup-title">Редактировать профиль</h2>
       <form name="personal-information" class="page__popup-text" novalidate>
         <div class="page__popup-form-field">
@@ -55,7 +54,7 @@
    </div>
    <div class="page__popup page__popup_type_new-place">
     <div class="page__popup-content">
-      <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик"  class="page__popup-close-icon"></button>
+      <button type="button" class="page__popup-close-button"><img src="<%=require('./images/close-icon.png')%>" alt="Крестик"  class="page__popup-close-icon"></button>
       <h2 class="page__popup-title">Новое место</h2>
       <form name="new-place" class="page__popup-text" novalidate>
         <div class="page__popup-form-field">
@@ -72,14 +71,14 @@
    </div>
    <div class="page__popup page__popup_type_photo">
     <div class="page__popup-photo-content">
-      <button type="button" class="page__popup-close-button"><img src="./images/close-icon.png" alt="Крестик" class="page__popup-close-icon"></button>
+      <button type="button" class="page__popup-close-button"><img src="<%=require('./images/close-icon.png')%>" alt="Крестик" class="page__popup-close-icon"></button>
       <img src="#" alt="#" class="page__popup-image">
       <p class="page__popup-caption"></p>
     </div>
   </div>
   <template id="element">
     <li class="element">
-      <button type="button" class="element__delete-button"><img src="./images/trash.png" alt="Корзина"></button>
+      <button type="button" class="element__delete-button"><img src="<%=require('./images/trash.png')%>" alt="Корзина"></button>
       <img src="#" alt="#" class="element__photo">
       <div class="element__caption">
         <p class="element__caption-text"></p>
@@ -87,9 +86,5 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./scripts/initialCards.js"></script>
-  <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 </html>
