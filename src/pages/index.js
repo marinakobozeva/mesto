@@ -24,8 +24,10 @@ function submitPlaceForm(values) {
 
 // Popup'ы
 const placePopup = new PopupWithForm('.page__popup_type_new-place', submitPlaceForm);
+placePopup.setEventListeners();
 
 const profilePopup = new PopupWithForm('.page__popup_type_profile', submitProfileForm);
+profilePopup.setEventListeners();
 const inputName = document.querySelector('.page__popup-input_type_name');
 const inputPosition = document.querySelector('.page__popup-input_type_position');
 
