@@ -5,7 +5,8 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import { initialCards } from '../components/initialCards.js';
+import { initialCards, validationConfig } from '../utils/constants.js';
+
 
 /* БЛОК ПЕРЕМЕННЫХ */
 const userInfo = new UserInfo({ nameSelector: '.profile__name', infoSelector: '.profile__position'});
@@ -32,22 +33,11 @@ const inputName = document.querySelector('.page__popup-input_type_name');
 const inputPosition = document.querySelector('.page__popup-input_type_position');
 
 const elementPopup = new PopupWithImage('.page__popup_type_photo');
-// const elementPopup = document.querySelector('.page__popup_type_photo');
-// const elementPopupPhoto = document.querySelector('.page__popup_type_photo .page__popup-image');
-// const elementPopupCaption = document.querySelector('.page__popup_type_photo .page__popup-caption');
+elementPopup.setEventListeners();
 
 // Кнопки, относящиеся к Popup
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addPlaceButton = document.querySelector('.profile__add-button');
-
-const validationConfig = {
-  'formSelector': '.page__popup-text',
-  'inputSelector': '.page__popup-input',
-  'submitButtonSelector':  '.page__popup-save-button',
-  'inactiveButtonClass': 'page__popup-save-button_inactive',
-  'inputErrorClass': 'page__popup-input_type_error',
-  'errorClass': 'page__popup-input-error_active'
-}
 
 // Форма изменения данных профиля
 const profileForm = document.querySelector('.page__popup_type_profile .page__popup-text');
