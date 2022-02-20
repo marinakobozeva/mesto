@@ -25,20 +25,17 @@ const userInfo = new UserInfo({
   avatarSelector: '.profile__avatar',
 });
 
-api.getPersonalInformation()
-.then((res) => {
+Promise.all([api.getPersonalInformation(), api.getInitialCards()])
+.then(([info, cards]) => {
   userInfo.setUserInfo({
-    name: res.name,
-    info: res.about,
+    name: info.name,
+    info: info.about,
   });
-  userInfo.setAvatar(res.avatar);
-  userInfo.setUserId(res._id);
+  userInfo.setAvatar(info.avatar);
+  userInfo.setUserId(info._id);
 
-  return api.getInitialCards()
-})
-.then((res) => {
-  for (let i = res.length - 1; i >= 0; i--) {
-    const element = createElement(res[i]);
+  for (let i = cards.length - 1; i >= 0; i--) {
+    const element = createElement(cards[i]);
     addElement(element);
   };
 })
@@ -52,7 +49,8 @@ function submitAvatarForm(values) {
   avatarBtn.textContent = 'Сохранение...';
   api.changeAvatar(avatarUrl)
   .then((res) => {
-    userInfo.setAvatar(avatarUrl)
+    userInfo.setAvatar(avatarUrl);
+    avatarPopup.close();
   })
   .catch((err) => {
     console.log(err)
@@ -67,7 +65,10 @@ function submitProfileForm(values) {
   const data = {name: values['personal-name'], info: values['personal-position']};
   profileBtn.textContent = 'Сохранение...'
   api.changePersonalInformation(data)
-  .then((res) => userInfo.setUserInfo(data))
+  .then((res) => {
+    userInfo.setUserInfo(data);
+    profilePopup.close();
+  })
   .catch((err) => {
     console.log(err)
   })
@@ -86,6 +87,7 @@ function submitPlaceForm(values) {
   .then((res) => {
     const element = createElement(res);
     addElement(element);
+    placePopup.close();
   })
   .catch((err) => {
     console.log(err)
